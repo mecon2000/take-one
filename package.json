@@ -7,7 +7,7 @@
   "engines": { "node": ">=18" },
   "scripts": {
     "gate:self-test": "node scripts/gate.mjs --self-test",
-    "check": "for f in scripts/*.mjs scripts/music/*.mjs scripts/review-room/*.mjs assets/previews-src/snap.mjs; do node --check \"$f\" || exit 1; done && for f in scripts/*.sh; do bash -n \"$f\" || exit 1; done && echo all scripts parse"
+    "check": "bash scripts/check.sh"
   },
   "dependencies": { "playwright-core": "^1.63.0" }
 }

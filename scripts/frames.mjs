@@ -24,5 +24,7 @@ for (const t of times) {
 }
 await browser.close(); srv.close();
 const cols = 6, rows = Math.max(1, Math.ceil(fs.readdirSync(dir).filter(f => /^t.*\.png$/.test(f)).length / cols)); // grid grows with the frame count (a fixed 6x4 dropped frames past 24)
-execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-pattern_type', 'glob', '-i', `${dir}/t*.png`, '-vf', `scale=360:-1,tile=${cols}x${rows}:padding=6:color=gray`, '-frames:v', '1', `${dir}/sheet.png`]);
+// a concat list instead of -pattern_type glob: the Windows ffmpeg builds have no glob support
+const list = `${dir}/sheet-list.txt`; fs.writeFileSync(list, fs.readdirSync(dir).filter(f => /^t.*\.png$/.test(f)).sort().map(f => `file '${f}'`).join('\n') + '\n');
+execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'concat', '-safe', '0', '-i', list, '-vf', `scale=360:-1,tile=${cols}x${rows}:padding=6:color=gray`, '-frames:v', '1', `${dir}/sheet.png`]); fs.unlinkSync(list);
 console.log(errs.length ? 'CONSOLE ERRORS:\n' + errs.join('\n') : 'no console errors', '\nframes + sheet:', dir);
