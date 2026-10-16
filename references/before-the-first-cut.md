@@ -31,7 +31,7 @@ Run `node <skill>/scripts/text-audit.mjs` from the film folder first: it measure
 
 ## 6. Nothing sits on what matters
 - Not on a face, not on the hand doing the action, not on the thing the person is looking at (a phone, a page).
-- Nothing important is cut by the frame's edge, and nothing waits half off-screen.
+- Nothing important is cut by the frame's edge, and nothing waits half off-screen. `node <skill>/scripts/edge-audit.mjs` lists what is cut by the frame, by a window inside it, or by the edge of a picture (see `pipeline.md`).
 - In stacked lines of type, a descender does not run into the line below.
 
 ## 7. Things that travel

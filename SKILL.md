@@ -226,6 +226,7 @@ Put the MP4 somewhere obvious (Desktop or Downloads), named plainly (`<name>.mp4
 - `references/before-the-first-cut.md` : the checks to walk on the stills, before any export
 - `references/page-or-picture.md` : the storyboard check that catches a slideshow before it is built
 - `scripts/text-audit.mjs` : measures the words a film draws (size at phone width, time on screen, corners, edges, faces, text printed over text)
+- `scripts/edge-audit.mjs` : finds pictures, cards and labels cut by an edge, the frame's, a window's inside it, or a big picture's own (warnings only)
 - `references/video-models.md` : read a video model's limits live; dated notes on the models we have used
 - `references/pipeline.md` : render tools, flags, gotchas
 - `references/audio.md` : Suno prompts, cutting music to beats, SFX

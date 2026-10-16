@@ -7,6 +7,7 @@
   "engines": { "node": ">=18" },
   "scripts": {
     "gate:self-test": "node scripts/gate.mjs --self-test",
+    "edge:self-test": "node scripts/edge-audit.mjs --self-test",
     "check": "bash scripts/check.sh"
   },
   "dependencies": { "playwright-core": "^1.63.0" }

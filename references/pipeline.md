@@ -64,6 +64,14 @@ Run it at the stills gate and again before the reviewer. It draws the film frame
 
 A FAIL is fixed. A WARN is a lead: look, then fix it or say why it stays. On one product ad the first cut had 15 fails, all things a fresh reviewer later named (status chips, tags, a note that flashed for 0.4 s); the delivered cut had 4. It sees only text the page draws itself, not words inside pictures, and it reads size, not contrast, so the 360 px sheet still gets read by eye.
 
+## Edge audit (pictures and shapes cut by an edge)
+
+```bash
+node <skill>/scripts/edge-audit.mjs                 # film.html in this folder
+node <skill>/scripts/edge-audit.mjs cut.html --shots edge-shots --json edge.json
+```
+Run it next to the text audit. The text audit catches words that leave the frame; this catches the rest: a card, an icon, a photo or a panel cut by the frame's edge or by a window drawn inside it (a player, a phone, a browser), held still for 0.8 s or more (`--min`). It also reads the pixels along the edges of every big picture, so a label or panel inside footage that runs into the picture's edge is caught too. That is what a slow push into a screen recording does to the labels at its sides: on one launch film it found the cut a reviewer had flagged, and more like it. `--shots` saves each frame with the item in red, its window in yellow and the side in magenta. Every line is a WARN: look, then fix it (move it in, zoom less, re-cut the footage with `content-box.py`) or say why it stays. Photos raise some lines that are not mistakes, since a photo's edge is full of picture. Set `window.EDGE_AUDIT_SKIP = true` while drawing texture or a film replayed inside the film. `--self-test` checks the audit itself.
+
 ## Export
 
 ```bash
