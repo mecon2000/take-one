@@ -17,8 +17,8 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 400px;height:calc(100% - 6
 #marks{position:absolute;left:0;right:0;top:-5px;height:8px;pointer-events:none}#marks i{position:absolute;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--accent)}#marks i.done{background:var(--ok)}
 #hint{color:var(--dim);font-size:14px;margin-top:10px}
 #speeds{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px}#speeds button{padding:6px 11px;font-size:14px}#speeds button.on{background:var(--accent);border-color:var(--accent);color:#17110e;font-weight:650}#speeds .lab{color:var(--dim);font-size:13px;margin:0 4px 0 8px}
-#chaps{position:absolute;left:0;right:0;bottom:-4px;height:10px;pointer-events:none}#chaps i{position:absolute;width:2px;height:12px;margin-left:-1px;background:#fff;opacity:.8}
-#chapbtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}#chapbtns button{padding:5px 10px;font-size:13px}
+#chaps{position:absolute;left:0;right:0;bottom:-6px;height:14px;pointer-events:none;z-index:2}#chaps i{position:absolute;width:12px;height:14px;margin-left:-6px;pointer-events:auto;cursor:pointer}#chaps i::before{content:'';position:absolute;left:5px;top:0;width:2px;height:14px;background:#fff;opacity:.85}
+#chaps i:hover::before{opacity:1;width:3px;left:4.5px}#chaps i::after{content:attr(data-label);position:absolute;bottom:20px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--panel);border:1px solid var(--line);color:var(--ink);font-size:12px;padding:3px 8px;border-radius:6px;display:none}#chaps i:hover::after{display:block}
 #right{border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
 #compose{padding:16px;border-bottom:1px solid var(--line)}#where{font-size:14px;color:var(--accent);margin-bottom:8px;min-height:20px}
 textarea{width:100%;min-height:92px;padding:10px 12px;resize:vertical}#compose .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
@@ -40,7 +40,6 @@ body.simple .adv{display:none!important}header label{display:flex;align-items:ce
     <div id="seekwrap"><div id="marks"></div><div id="chaps"></div><input id="seek" type="range" min="0" max="1" step="0.001" value="0"></div><span id="time"></span></div>
   <div id="speeds" style="display:none"><span class="lab">Back</span><button data-s="-4">◀◀ 4×</button><button data-s="-2">◀◀ 2×</button><button data-s="-1.5">◀◀ 1.5×</button><button data-s="-1">◀ 1×</button>
     <span class="lab">Forward</span><button data-s="1" class="on">1×</button><button data-s="1.5">1.5×</button><button data-s="2">2×</button><button data-s="4">4×</button></div>
-  <div id="chapbtns"></div>
   <div id="hint">Click anywhere on the picture to pin a note to that spot on that frame. Space plays and pauses. The arrow keys move one frame. J / K / L: back, stop, forward (press J or L again to go faster).</div>
 </section>
 <aside id="right"><div id="compose"><div id="where">Click on the picture, or write a note about the whole film.</div>
@@ -116,9 +115,9 @@ v.addEventListener('play',()=>{stopRev();v.playbackRate=speed>0?speed:1;});
 // chapters
 let chapters=[];
 async function loadChapters(){try{chapters=await api('/api/chapters?cut='+encodeURIComponent($('cut').value));}catch{chapters=[];}drawChapters();}
-function drawChapters(){const C=$('chaps'),B=$('chapbtns');C.innerHTML='';B.innerHTML='';if(!chapters.length)return;
-  for(const c of chapters){if(v.duration){const i=document.createElement('i');i.style.left=(c.t/v.duration*100)+'%';i.title=c.label;C.appendChild(i);}
-    const b=document.createElement('button');b.textContent=c.label+' · '+fmt(c.t).replace(/\.\d+$/,'');b.onclick=()=>{stopRev();v.currentTime=c.t;};B.appendChild(b);}}
+// act markers: a tick on the timeline; hover shows the name, click jumps there
+function drawChapters(){const C=$('chaps');C.innerHTML='';if(!v.duration)return;
+  for(const c of chapters){const i=document.createElement('i');i.style.left=(c.t/v.duration*100)+'%';i.dataset.label=c.label+' · '+fmt(c.t).replace(/\.\d+$/,'');i.onclick=()=>{stopRev();v.currentTime=c.t;};C.appendChild(i);}}
 v.addEventListener('loadedmetadata',()=>{loadChapters();$('speeds').style.display=v.duration>=60?'':'none';if(v.duration<60)setSpeed(1);});   // speed/reverse only for long films (1 min+)
 // J K L shuttle
 const shuttle=[1,1.5,2,4];
