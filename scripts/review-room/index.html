@@ -12,7 +12,7 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 400px;height:calc(100% - 6
 .vid .tag{position:absolute;left:10px;top:10px;background:rgba(12,12,13,.72);padding:3px 9px;border-radius:8px;font-size:13px;color:var(--dim)}
 #hit{position:absolute;inset:0;cursor:crosshair}
 .pin{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #fff;background:var(--accent);box-shadow:0 0 0 2px rgba(0,0,0,.55);pointer-events:none}
-#bar{display:flex;gap:10px;align-items:center;margin-top:12px}#ctl{display:flex;gap:4px;align-items:center;flex:none}button.ic{font-size:17px;line-height:1;padding:8px 11px;min-width:42px}body.short .long{display:none}#spd{min-width:44px;font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums;text-align:center}#time{font-variant-numeric:tabular-nums;color:var(--dim);min-width:190px;font-size:14px}
+#bar{display:flex;gap:10px;align-items:center;margin-top:12px}#ctl{display:flex;gap:4px;align-items:center;flex:none}button.ic{font-size:17px;line-height:1;padding:8px 11px;min-width:42px}body.short .long{display:none}#spd{min-width:44px;font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums;text-align:center;cursor:pointer;user-select:none;border:1px solid var(--line);border-radius:8px;padding:6px 4px}#spd:hover{border-color:#55544f}#time{font-variant-numeric:tabular-nums;color:var(--dim);min-width:190px;font-size:14px}
 #seekwrap{position:relative;flex:1;height:28px}#seek{position:absolute;inset:0;width:100%;margin:0;accent-color:var(--accent)}
 #marks{position:absolute;left:0;right:0;top:-5px;height:8px;pointer-events:none}#marks i{position:absolute;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--accent)}#marks i.done{background:var(--ok)}
 #hint{color:var(--dim);font-size:14px;margin-top:10px}
@@ -35,7 +35,7 @@ body.simple .adv{display:none!important}header label{display:flex;align-items:ce
 <main><section id="left">
   <div id="stage"><div class="vid"><video id="v" playsinline preload="auto"></video><div id="hit"></div><div class="tag" id="tagA"></div></div>
     <div class="vid" id="boxB" style="display:none"><video id="w" playsinline muted preload="auto"></video><div class="tag" id="tagB"></div></div></div>
-  <div id="bar"><span id="ctl"><button id="back" class="ic" title="one frame back (←)">⏮</button><button id="rew" class="ic long" title="play backwards; click again for 1.5× / 2× / 4× (J)">⏪</button><button id="play" class="ic" title="play / pause (space, K)">▶</button><button id="ff" class="ic long" title="fast forward 1.5× / 2× / 4× (L)">⏩</button><button id="fwd" class="ic" title="one frame forward (→)">⏭</button><span id="spd"></span></span>
+  <div id="bar"><span id="ctl"><button id="back" class="ic" title="one frame back (←)">⏮</button><button id="rew" class="ic long" title="play backwards; click again for 1.5× / 2× / 4× (J)">⏪</button><button id="play" class="ic" title="play / pause (space, K)">▶</button><button id="ff" class="ic long" title="fast forward 1.5× / 2× / 4× (L)">⏩</button><button id="fwd" class="ic" title="one frame forward (→)">⏭</button><span id="spd" class="long" title="click: next speed (1× → 1.5× → 2× → 4×), same direction">1×</span></span>
     <div id="seekwrap"><div id="marks"></div><div id="chaps"></div><input id="seek" type="range" min="0" max="1" step="0.001" value="0"></div><span id="time"></span></div>
   <div id="hint">Click anywhere on the picture to pin a note to that spot on that frame. Space plays and pauses. Arrows: one frame. J / K / L: back, stop, forward (press again to go faster).</div>
 </section>
@@ -100,7 +100,7 @@ v.ontimeupdate=()=>{$('seek').value=v.duration?v.currentTime/v.duration:0;$('tim
 $('cut').onchange=()=>{setCut();};
 // speed: positive = normal playback at that rate; negative = reverse, driven by seeks (one seek at a time, timed to the wall clock)
 let speed=1,rev=null;
-function markSpeed(){$('spd').textContent=speed===1?'':(speed<0?'◀ ':'')+Math.abs(speed)+'×';}
+function markSpeed(){$('spd').textContent=(speed<0?'◀ ':'')+Math.abs(speed)+'×';}
 function stopRev(){if(rev){cancelAnimationFrame(rev.raf);rev=null;$('play').textContent='▶';}}
 function setSpeed(s){speed=s;markSpeed();if(s>0){stopRev();v.playbackRate=s;if(w.src)w.playbackRate=s;}else{const wasPlaying=!v.paused||rev;v.pause();if(wasPlaying)startRev();}}
 function startRev(){stopRev();v.pause();const r={t0:performance.now(),v0:v.currentTime,busy:false};rev=r;$('play').textContent='⏸';
@@ -111,6 +111,7 @@ function startRev(){stopRev();v.pause();const r={t0:performance.now(),v0:v.curre
 v.addEventListener('seeked',()=>{if(rev)rev.busy=false;});
 const cyc=[1,1.5,2,4],nxt=(s)=>cyc[(cyc.indexOf(Math.abs(s))+1)%cyc.length];
 $('rew').onclick=()=>{const s=rev?-nxt(speed):-1;setSpeed(s);if(!rev)startRev();};                    // backwards: 1x, then 1.5x, 2x, 4x
+$('spd').onclick=()=>{const s=(speed<0?-1:1)*nxt(speed);setSpeed(s);};   // cycle speed, keep direction (playing state unchanged)
 $('ff').onclick=()=>{const s=(!v.paused&&speed>0)?nxt(speed):1.5;setSpeed(s);if(v.paused)v.play();};  // forward: 1.5x, 2x, 4x, back to 1x
 const playBase=$('play').onclick;$('play').onclick=()=>{if(rev){stopRev();return;}if(speed<0){startRev();return;}playBase();};
 v.addEventListener('play',()=>{stopRev();v.playbackRate=speed>0?speed:1;});
