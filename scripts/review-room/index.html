@@ -88,7 +88,10 @@ $('add').onclick=add;$('text').addEventListener('keydown',(e)=>{if(e.key==='Ente
 $('send').onclick=async()=>{await api('/api/send',{method:'POST',body:JSON.stringify({cut:$('cut').value})});toast('Sent. Claude can read your notes now.');};
 const step=(d)=>{stopRev();v.pause();v.currentTime=Math.max(0,Math.min(v.duration||0,Math.round(v.currentTime*FPS+d)/FPS));};
 $('play').onclick=()=>v.paused?v.play():v.pause();$('back').onclick=()=>step(-1);$('fwd').onclick=()=>step(1);
-$('seek').oninput=()=>{v.currentTime=$('seek').value*(v.duration||0);};
+$('seek').oninput=()=>{let x=Number($('seek').value);
+  // sticky act markers: dragging within ~8 px of a tick snaps onto it
+  if(window.chapters&&v.duration){const px=$('seek').getBoundingClientRect().width||1;for(const c of chapters){const cx=c.t/v.duration;if(Math.abs(cx-x)*(px-16)<8){x=cx;$('seek').value=x;break;}}}
+  v.currentTime=x*(v.duration||0);};
 v.onplay=()=>{$('play').textContent='Pause';showPin(null);if(w.src){w.currentTime=v.currentTime;w.play();}};v.onpause=()=>{$('play').textContent='Play';if(w.src){w.pause();w.currentTime=v.currentTime;}};
 v.onseeked=()=>{if(w.src&&v.paused)w.currentTime=v.currentTime;};v.onloadedmetadata=()=>{fit();draw();};w.onloadedmetadata=fit;
 function hh(){const h=document.querySelector('header').offsetHeight;document.documentElement.style.setProperty('--hh',h+'px');}window.addEventListener('resize',hh);
@@ -113,11 +116,11 @@ document.querySelectorAll('#speeds button').forEach((b)=>b.onclick=()=>{const s=
 const playBase=$('play').onclick;$('play').onclick=()=>{if(rev){stopRev();return;}if(speed<0){startRev();return;}playBase();};
 v.addEventListener('play',()=>{stopRev();v.playbackRate=speed>0?speed:1;});
 // chapters
-let chapters=[];
+var chapters=[];
 async function loadChapters(){try{chapters=await api('/api/chapters?cut='+encodeURIComponent($('cut').value));}catch{chapters=[];}drawChapters();}
 // act markers: a tick on the timeline; hover shows the name, click jumps there
 function drawChapters(){const C=$('chaps');C.innerHTML='';if(!v.duration)return;
-  for(const c of chapters){const i=document.createElement('i');i.style.left=(c.t/v.duration*100)+'%';i.dataset.label=c.label+' · '+fmt(c.t).replace(/\.\d+$/,'');i.onclick=()=>{stopRev();v.currentTime=c.t;};C.appendChild(i);}}
+  for(const c of chapters){const i=document.createElement('i');i.style.left=`calc(8px + (100% - 16px) * ${c.t/v.duration})`;i.dataset.label=c.label+' · '+fmt(c.t).replace(/\.\d+$/,'');i.onclick=()=>{stopRev();v.currentTime=c.t;};C.appendChild(i);}}
 v.addEventListener('loadedmetadata',()=>{loadChapters();$('speeds').style.display=v.duration>=60?'':'none';if(v.duration<60)setSpeed(1);});   // speed/reverse only for long films (1 min+)
 // J K L shuttle
 const shuttle=[1,1.5,2,4];
