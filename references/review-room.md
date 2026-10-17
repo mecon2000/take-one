@@ -16,6 +16,7 @@ Then open http://localhost:4400. It only listens on 127.0.0.1; nothing is upload
 - Click on the picture: a pinned note on that frame. Also a note on the frame with no pin, or on the whole film.
 - Play a second cut next to the first, in sync, to compare.
 - Press "Send notes" when done.
+- **Download** (the browser's own save) or **Save to…**, which copies the cut, and its `-sfx-only` twin, straight into a folder. Browsers can't preset their Save dialog's folder, so Save to… is the way to land files in the right place. The panel is prefilled from `<cuts folder>/review-room.json`: `{"saveDirs":[{"label":"Shared","path":"/abs/dir"}]}`. List the shared folder and the shoot folder the photos came from there. Any typed path works too; Windows paths like `D:\x` map to `/mnt/d/x` under WSL.
 
 ## What the maker reads
 - `<cuts folder>/review-notes/notes.json`: every note with `cut`, `t` (seconds), `frame`, `x` and `y` (0 to 1), `text`, `done`.
@@ -31,5 +32,11 @@ Then open http://localhost:4400. It only listens on 127.0.0.1; nothing is upload
 
 ## Limits
 - The page assumes 30 frames a second for the frame counter (`FPS=30` in `index.html`).
+- The player box takes the cut's own shape (9:16 stays 9:16), so pins and snapshots are measured on the picture itself. Notes saved before 2026-10-14 were measured on a 16:9 box.
 - Files with `silent` or `small` in the name are hidden from the list (working files).
 - One reviewer at a time; notes carry no name.
+
+**Long films (added 2026-10-17):**
+- For cuts of 1 minute or more, the room shows speed buttons: forward 1×/1.5×/2×/4× and reverse ◀ 1×/1.5×/2×/4×, plus J/K/L shuttle keys.
+- Write `<cut>.chapters.json` next to the cut as `[{"t": seconds, "label": "Act II"}, …]`. It shows as ticks on the seek bar and jump buttons.
+- Encode review cuts with `-g <fps>` (one keyframe per second) so reverse play stays smooth.
