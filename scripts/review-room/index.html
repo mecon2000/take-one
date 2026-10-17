@@ -12,11 +12,10 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 400px;height:calc(100% - 6
 .vid .tag{position:absolute;left:10px;top:10px;background:rgba(12,12,13,.72);padding:3px 9px;border-radius:8px;font-size:13px;color:var(--dim)}
 #hit{position:absolute;inset:0;cursor:crosshair}
 .pin{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:3px solid #fff;background:var(--accent);box-shadow:0 0 0 2px rgba(0,0,0,.55);pointer-events:none}
-#bar{display:flex;gap:10px;align-items:center;margin-top:12px}#time{font-variant-numeric:tabular-nums;color:var(--dim);min-width:190px;font-size:14px}
+#bar{display:flex;gap:10px;align-items:center;margin-top:12px}#ctl{display:flex;gap:4px;align-items:center;flex:none}button.ic{font-size:17px;line-height:1;padding:8px 11px;min-width:42px}body.short .long{display:none}#spd{min-width:44px;font-size:13px;color:var(--accent);font-variant-numeric:tabular-nums;text-align:center}#time{font-variant-numeric:tabular-nums;color:var(--dim);min-width:190px;font-size:14px}
 #seekwrap{position:relative;flex:1;height:28px}#seek{position:absolute;inset:0;width:100%;margin:0;accent-color:var(--accent)}
 #marks{position:absolute;left:0;right:0;top:-5px;height:8px;pointer-events:none}#marks i{position:absolute;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:var(--accent)}#marks i.done{background:var(--ok)}
 #hint{color:var(--dim);font-size:14px;margin-top:10px}
-#speeds{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-top:10px}#speeds button{padding:6px 11px;font-size:14px}#speeds button.on{background:var(--accent);border-color:var(--accent);color:#17110e;font-weight:650}#speeds .lab{color:var(--dim);font-size:13px;margin:0 4px 0 8px}
 #chaps{position:absolute;left:0;right:0;bottom:-6px;height:14px;pointer-events:none;z-index:2}#chaps i{position:absolute;width:12px;height:14px;margin-left:-6px;pointer-events:auto;cursor:pointer}#chaps i::before{content:'';position:absolute;left:5px;top:0;width:2px;height:14px;background:#fff;opacity:.85}
 #chaps i:hover::before{opacity:1;width:3px;left:4.5px}#chaps i::after{content:attr(data-label);position:absolute;bottom:20px;left:50%;transform:translateX(-50%);white-space:nowrap;background:var(--panel);border:1px solid var(--line);color:var(--ink);font-size:12px;padding:3px 8px;border-radius:6px;display:none}#chaps i:hover::after{display:block}
 #right{border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
@@ -26,7 +25,7 @@ textarea{width:100%;min-height:92px;padding:10px 12px;resize:vertical}#compose .
 .note img{width:112px;border-radius:6px;cursor:pointer;display:block;background:#000}.note .t{font-size:13px;color:var(--accent);cursor:pointer}.note .x{font-size:13px;color:var(--dim);cursor:pointer;margin-left:10px}
 .note p{margin:4px 0 0;white-space:pre-wrap}.note.done p{color:var(--dim);text-decoration:line-through}.empty{color:var(--dim);padding:18px 0}
 #savebox{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:9}#savebox .card{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:18px;width:min(560px,92vw);display:flex;flex-direction:column;gap:10px}#savebox input[type=text],#dirpath{width:100%;padding:9px 11px}#dirs{display:flex;flex-direction:column;gap:6px}#dirs button{text-align:left}#savebox .row{display:flex;gap:8px}#savemsg{font-size:14px;color:var(--dim);min-height:18px}a.btn{color:inherit;text-decoration:none;border:1px solid var(--line);border-radius:8px;padding:7px 12px;font-size:14px}
-@media (max-width:820px){header{flex-wrap:wrap;gap:8px;padding:10px}header h1{display:none}header label{font-size:13px}main{display:block;height:auto}#left{padding:10px}#right{border-left:none;border-top:1px solid var(--line)}#bar{flex-wrap:wrap}#seekwrap{flex-basis:100%;order:9}#hint{display:none}textarea{font-size:16px}}
+@media (max-width:820px){#time{min-width:0!important;font-size:12px;margin-left:auto}button.ic{min-width:38px;padding:8px 9px}#spd{min-width:30px}header{flex-wrap:wrap;gap:8px;padding:10px}header h1{display:none}header label{font-size:13px}main{display:block;height:auto}#left{padding:10px}#right{border-left:none;border-top:1px solid var(--line)}#bar{flex-wrap:wrap}#seekwrap{flex-basis:100%;order:9}#hint{display:none}textarea{font-size:16px}}
 body.simple .adv{display:none!important}header label{display:flex;align-items:center;gap:6px;white-space:nowrap}header select{max-width:170px}header .adv select{max-width:120px}header{flex-wrap:wrap;row-gap:8px}header button,header a.btn{white-space:nowrap}main{height:calc(100vh - var(--hh,62px))!important}button.icon{font-size:18px;padding:6px 10px;line-height:1}body:not(.simple) #mode{background:var(--accent);color:#111}
 #right{display:flex;flex-direction:column}#list{flex:1;overflow:auto}#sendbar{padding:14px 16px;border-top:1px solid var(--line)}#sendbar button{width:100%;padding:12px;font-size:16px}
 #newcut{position:fixed;left:50%;top:14px;transform:translateX(-50%);background:var(--bg);border:1px solid var(--accent);border-radius:12px;padding:10px 14px;display:none;gap:10px;align-items:center;z-index:20;box-shadow:0 6px 24px rgba(0,0,0,.5)}
@@ -36,11 +35,9 @@ body.simple .adv{display:none!important}header label{display:flex;align-items:ce
 <main><section id="left">
   <div id="stage"><div class="vid"><video id="v" playsinline preload="auto"></video><div id="hit"></div><div class="tag" id="tagA"></div></div>
     <div class="vid" id="boxB" style="display:none"><video id="w" playsinline muted preload="auto"></video><div class="tag" id="tagB"></div></div></div>
-  <div id="bar"><button id="play">Play</button><button id="back" title="one frame back">&#9664; frame</button><button id="fwd" title="one frame forward">frame &#9654;</button>
+  <div id="bar"><span id="ctl"><button id="back" class="ic" title="one frame back (←)">⏮</button><button id="rew" class="ic long" title="play backwards; click again for 1.5× / 2× / 4× (J)">⏪</button><button id="play" class="ic" title="play / pause (space, K)">▶</button><button id="ff" class="ic long" title="fast forward 1.5× / 2× / 4× (L)">⏩</button><button id="fwd" class="ic" title="one frame forward (→)">⏭</button><span id="spd"></span></span>
     <div id="seekwrap"><div id="marks"></div><div id="chaps"></div><input id="seek" type="range" min="0" max="1" step="0.001" value="0"></div><span id="time"></span></div>
-  <div id="speeds" style="display:none"><span class="lab">Back</span><button data-s="-4">◀◀ 4×</button><button data-s="-2">◀◀ 2×</button><button data-s="-1.5">◀◀ 1.5×</button><button data-s="-1">◀ 1×</button>
-    <span class="lab">Forward</span><button data-s="1" class="on">1×</button><button data-s="1.5">1.5×</button><button data-s="2">2×</button><button data-s="4">4×</button></div>
-  <div id="hint">Click anywhere on the picture to pin a note to that spot on that frame. Space plays and pauses. The arrow keys move one frame. J / K / L: back, stop, forward (press J or L again to go faster).</div>
+  <div id="hint">Click anywhere on the picture to pin a note to that spot on that frame. Space plays and pauses. Arrows: one frame. J / K / L: back, stop, forward (press again to go faster).</div>
 </section>
 <aside id="right"><div id="compose"><div id="where">Click on the picture, or write a note about the whole film.</div>
   <textarea id="text" placeholder="What should change here?"></textarea>
@@ -92,27 +89,29 @@ $('seek').oninput=()=>{let x=Number($('seek').value);
   // sticky act markers: dragging within ~8 px of a tick snaps onto it
   if(window.chapters&&v.duration){const px=$('seek').getBoundingClientRect().width||1;for(const c of chapters){const cx=c.t/v.duration;if(Math.abs(cx-x)*(px-16)<8){x=cx;$('seek').value=x;break;}}}
   v.currentTime=x*(v.duration||0);};
-v.onplay=()=>{$('play').textContent='Pause';showPin(null);if(w.src){w.currentTime=v.currentTime;w.play();}};v.onpause=()=>{$('play').textContent='Play';if(w.src){w.pause();w.currentTime=v.currentTime;}};
+v.onplay=()=>{$('play').textContent='⏸';showPin(null);if(w.src){w.currentTime=v.currentTime;w.play();}};v.onpause=()=>{$('play').textContent='▶';if(w.src){w.pause();w.currentTime=v.currentTime;}};
 v.onseeked=()=>{if(w.src&&v.paused)w.currentTime=v.currentTime;};v.onloadedmetadata=()=>{fit();draw();};w.onloadedmetadata=fit;
 function hh(){const h=document.querySelector('header').offsetHeight;document.documentElement.style.setProperty('--hh',h+'px');}window.addEventListener('resize',hh);
 function fit(){hh();const L=$('left'),two=$('stage').className==='two',narrow=window.innerWidth<=820,maxW=(L.clientWidth-(narrow?20:40))/(two?2:1)-(two?8:0),maxH=window.innerHeight-(narrow?170:230);
   for(const [vid,box] of [[v,v.parentElement],[w,$('boxB')]]){if(!vid.videoWidth)continue;const ar=vid.videoWidth/vid.videoHeight,Wd=Math.min(maxW,maxH*ar);
     box.style.aspectRatio=String(ar);box.style.width=Math.round(Wd)+'px';box.style.height=Math.round(Wd/ar)+'px';box.style.margin='0 auto';}}
 window.addEventListener('resize',fit);
-v.ontimeupdate=()=>{$('seek').value=v.duration?v.currentTime/v.duration:0;$('time').textContent=fmt(v.currentTime)+' / '+fmt(v.duration||0)+' · frame '+Math.round(v.currentTime*FPS);};
+v.ontimeupdate=()=>{$('seek').value=v.duration?v.currentTime/v.duration:0;$('time').textContent=window.innerWidth<=820?fmt(v.currentTime).replace(/\.\d+$/,'')+' · f'+Math.round(v.currentTime*FPS):fmt(v.currentTime)+' / '+fmt(v.duration||0)+' · frame '+Math.round(v.currentTime*FPS);   /* phone: short readout so it fits the control row */};
 $('cut').onchange=()=>{setCut();};
 // speed: positive = normal playback at that rate; negative = reverse, driven by seeks (one seek at a time, timed to the wall clock)
 let speed=1,rev=null;
-function markSpeed(){document.querySelectorAll('#speeds button').forEach((b)=>b.classList.toggle('on',Number(b.dataset.s)===speed));}
-function stopRev(){if(rev){cancelAnimationFrame(rev.raf);rev=null;$('play').textContent='Play';}}
+function markSpeed(){$('spd').textContent=speed===1?'':(speed<0?'◀ ':'')+Math.abs(speed)+'×';}
+function stopRev(){if(rev){cancelAnimationFrame(rev.raf);rev=null;$('play').textContent='▶';}}
 function setSpeed(s){speed=s;markSpeed();if(s>0){stopRev();v.playbackRate=s;if(w.src)w.playbackRate=s;}else{const wasPlaying=!v.paused||rev;v.pause();if(wasPlaying)startRev();}}
-function startRev(){stopRev();v.pause();const r={t0:performance.now(),v0:v.currentTime,busy:false};rev=r;$('play').textContent='Pause';
+function startRev(){stopRev();v.pause();const r={t0:performance.now(),v0:v.currentTime,busy:false};rev=r;$('play').textContent='⏸';
   const tick=()=>{if(rev!==r)return;const target=r.v0+speed*(performance.now()-r.t0)/1000;
     if(target<=0){v.currentTime=0;stopRev();return;}
     if(!r.busy){r.busy=true;v.currentTime=target;if(w.src)w.currentTime=target;}r.raf=requestAnimationFrame(tick);};
   r.raf=requestAnimationFrame(tick);}
 v.addEventListener('seeked',()=>{if(rev)rev.busy=false;});
-document.querySelectorAll('#speeds button').forEach((b)=>b.onclick=()=>{const s=Number(b.dataset.s);setSpeed(s);if(s>0&&v.paused)v.play();if(s<0&&!rev)startRev();});
+const cyc=[1,1.5,2,4],nxt=(s)=>cyc[(cyc.indexOf(Math.abs(s))+1)%cyc.length];
+$('rew').onclick=()=>{const s=rev?-nxt(speed):-1;setSpeed(s);if(!rev)startRev();};                    // backwards: 1x, then 1.5x, 2x, 4x
+$('ff').onclick=()=>{const s=(!v.paused&&speed>0)?nxt(speed):1.5;setSpeed(s);if(v.paused)v.play();};  // forward: 1.5x, 2x, 4x, back to 1x
 const playBase=$('play').onclick;$('play').onclick=()=>{if(rev){stopRev();return;}if(speed<0){startRev();return;}playBase();};
 v.addEventListener('play',()=>{stopRev();v.playbackRate=speed>0?speed:1;});
 // chapters
@@ -121,7 +120,7 @@ async function loadChapters(){try{chapters=await api('/api/chapters?cut='+encode
 // act markers: a tick on the timeline; hover shows the name, click jumps there
 function drawChapters(){const C=$('chaps');C.innerHTML='';if(!v.duration)return;
   for(const c of chapters){const i=document.createElement('i');i.style.left=`calc(8px + (100% - 16px) * ${c.t/v.duration})`;i.dataset.label=c.label+' · '+fmt(c.t).replace(/\.\d+$/,'');i.onclick=()=>{stopRev();v.currentTime=c.t;};C.appendChild(i);}}
-v.addEventListener('loadedmetadata',()=>{loadChapters();$('speeds').style.display=v.duration>=60?'':'none';if(v.duration<60)setSpeed(1);});   // speed/reverse only for long films (1 min+)
+v.addEventListener('loadedmetadata',()=>{loadChapters();document.body.classList.toggle('short',v.duration<60);if(v.duration<60)setSpeed(1);});   // speed/reverse only for long films (1 min+)
 // J K L shuttle
 const shuttle=[1,1.5,2,4];
 document.addEventListener('keydown',(e)=>{if(e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT'||e.target.tagName==='INPUT')return;const k=e.key.toLowerCase();

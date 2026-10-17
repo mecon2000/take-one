@@ -37,6 +37,6 @@ Then open http://localhost:4400. It only listens on 127.0.0.1; nothing is upload
 - One reviewer at a time; notes carry no name.
 
 **Long films (added 2026-10-17):**
-- For cuts of 1 minute or more, the room shows speed buttons: forward 1×/1.5×/2×/4× and reverse ◀ 1×/1.5×/2×/4×, plus J/K/L shuttle keys.
+- For cuts of 1 minute or more, the one-row control bar adds ⏪ (reverse, click again for 1.5×/2×/4×) and ⏩ (1.5×/2×/4×), plus J/K/L shuttle keys. Shorter cuts hide them.
 - Write `<cut>.chapters.json` next to the cut as `[{"t": seconds, "label": "Act II"}, …]`. It shows as ticks on the seek bar: hover to see the name, click to jump there; dragging the knob within ~8 px of a tick snaps onto it.
 - Encode review cuts with `-g <fps>` (one keyframe per second) so reverse play stays smooth.
