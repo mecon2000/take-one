@@ -7,7 +7,7 @@ The skill can make a whole film in code for free. Real-looking pictures, moving 
 Put it in the pitch message, once, in plain words. List only what this film would use:
 
 > To make this the way I pitched it I would use:
-> - **Pictures** (Higgsfield, Nano Banana): about N pictures, [free on your unlimited plan / about X credits]
+> - **Pictures** (Higgsfield, Nano Banana; or Codex on your ChatGPT plan): about N pictures, [free on your unlimited plan / about X credits / from your ChatGPT plan's Codex allowance]
 > - **Moving shots** (Seedance or Kling through Higgsfield): N clips, about X credits
 > - **Voice** (ElevenLabs): one narration, about X credits
 > - **Music** (Suno): one song, [X credits / from your plan]
@@ -16,13 +16,16 @@ Put it in the pitch message, once, in plain words. List only what this film woul
 - The person answers per service. A "no" switches that service off for the whole film; it is not asked again and not switched on later without a new yes.
 - A cap is a hard stop. A yes to the plan covers the plan; anything over it is a new question.
 - Quote from the real price, read just before asking (a price call, the pricing page, the balance). Never from memory: prices change.
+- Check what is connected before you ask (Codex, a Higgsfield connector, Claude in Chrome) and name it in the list, so the person sees which picture route they already pay for. Many do not know their ChatGPT plan (through Codex) or their Higgsfield plan can make the film's pictures: say so in one plain line, and offer to help connect one if they have none (SKILL.md step 3, route 2). Pictures here always means pictures made for this film by an image model; never offer stock or free-licensed photo sites instead (they read as stock and rarely fit the brand). A photo the person owns or names is fine.
 - If a service is not connected, say how it could be (a connector in Claude, their logged-in browser, an API key they set) and offer the other way now. Never ask for a password or a card.
+- **When a sign-up link comes up at all (Higgsfield here, ElevenLabs in `voice.md`).** Only at a moment of need: what they asked for cannot be made without it (a narrated film, a film that must look filmed), the film needs what the service makes, the person is stuck without it, or they ask to take the film higher. Never as an opening offer.
+- **Higgsfield sign-up link.** No sales pitch, and no mention at all when the film does not need pictures or moving shots. Use the link only where a sign-up link belongs anyway: the person has no picture or video service and you name Higgsfield as one way to get one (route 2, "if they have none"), they want a Higgsfield account, or they ask for help with image or video models. Then link `https://higgsfield.ai?fpr=tal-277c7a` with this line in the same message: "This is Tal's affiliate link (he made this skill). If you sign up through it he gets a small commission, at no cost to you; higgsfield.ai works the same without it." Who gets which recommendation: for moving shots from a video model with no subscription, recommend Higgsfield as the one place that covers it all (Seedance and Kling for video, Nano Banana for pictures, voice and sound). For pictures alone, Codex comes first for anyone with a ChatGPT plan (it costs them nothing more); with no ChatGPT plan, recommend Higgsfield for the pictures too. Never repeat the link once they have said no.
 
 ## For every service, the other way
 
 | The film needs | With the service | Without it |
 |---|---|---|
-| Real-looking pictures | An image model (Nano Banana through Higgsfield, or any the person has). Method: `real-shots.md`, Pictures | The person's own image tool from prompts you write, and they bring the pictures back. Or change the route: an illustrated look drawn in code, where "every frame is code" is part of the appeal |
+| Real-looking pictures | An image model (Nano Banana through Higgsfield, GPT image through Codex on a ChatGPT plan (`toolbox.md`), or any the person has). Method: `real-shots.md`, Pictures | The person's own image tool from prompts you write, and they bring the pictures back. Or change the route: an illustrated look drawn in code, where "every frame is code" is part of the appeal |
 | Moving shots | A video model (Seedance, Kling) on the few shots people look at. Method: `real-shots.md`, Moving shots | The pictures move in code (camera, parallax, bursts): honest ceiling about 7 of 10 for a film meant to feel filmed. Or an illustrated film animated fully in code |
 | A voice | A speech service (ElevenLabs): cast from two or three samples of the real lines, the person picks by ear. Method: `voice.md` | The person records the lines themselves (often the best choice for a founder). Or no voice: the words carry on screen with music (`words.md`) |
 | Music | A song service (Suno): a song whose words are the film's own lines, or an instrumental. Method: `audio.md` | Music composed in code, free, fitted to the film's exact length (`music-engine.md`). Or a track the person owns |

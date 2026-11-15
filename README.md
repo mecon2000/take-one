@@ -110,7 +110,7 @@ If you keep your own taste in a file (a `TASTE.md`, a voice guide, an agent that
 ## What it costs
 
 - **Your Claude usage.** A 30 second film built in one session is roughly 0.4 to 0.7 million tokens and one to two hours. Longer films cost more; splitting the build across agents is faster and costs several times more. These are estimates; it tells you the size before it starts.
-- **Credits, only if you say yes.** The code-only way is free. Pictures and moving shots (it knows Higgsfield, with Nano Banana, Seedance and Kling), a voice (ElevenLabs) and music (Suno) are used through accounts you already have. It reads the real price first and asks. None of them is required.
+- **Credits, only if you say yes.** The code-only way is free. Pictures and moving shots (it knows Higgsfield, with Nano Banana, Seedance and Kling), a voice (ElevenLabs) and music (Suno) are used through accounts you already have. It reads the real price first and asks. None of them is required. When it points you to Higgsfield or ElevenLabs for a new account, the link is Tal's affiliate or partner link and it says so; you can always sign up on their sites directly.
 
 ## What to expect
 
@@ -131,7 +131,7 @@ It is slow, and it is strongest for product and brand films.
 
 ## Inside the repo
 
-`SKILL.md` is the entry point. `references/` holds the craft (timing, words, sound, brand, the checks before the first cut, the reviewer's brief, the illustrated looks). `scripts/` holds the tools (machine check, frames, export, quality gate, text audit, sound check, review room).
+`SKILL.md` is the entry point. `references/` holds the craft (timing, words, sound, brand, the checks before the first cut, the reviewer's brief, the illustrated looks). `scripts/` holds the tools (machine check, frames, export, quality gate, text audit, picture audit, sound check, review room).
 
 ## Credits
 
