@@ -35,7 +35,7 @@ body.simple .adv{display:none!important}header label{display:flex;align-items:ce
 <main><section id="left">
   <div id="stage"><div class="vid"><video id="v" playsinline preload="auto"></video><div id="hit"></div><div class="tag" id="tagA"></div></div>
     <div class="vid" id="boxB" style="display:none"><video id="w" playsinline muted preload="auto"></video><div class="tag" id="tagB"></div></div></div>
-  <div id="bar"><span id="ctl"><button id="back" class="ic" title="one frame back (←)">⏮</button><button id="rew" class="ic long" title="play backwards; click again for 1.5× / 2× / 4× (J)">⏪</button><button id="play" class="ic" title="play / pause (space, K)">▶</button><button id="ff" class="ic long" title="fast forward 1.5× / 2× / 4× (L)">⏩</button><button id="fwd" class="ic" title="one frame forward (→)">⏭</button><span id="spd" class="long" title="click: next speed (1× → 1.5× → 2× → 4×), same direction">1×</span></span>
+  <div id="bar"><span id="ctl"><button id="back" class="ic" title="one frame back (←)">⏮</button><button id="rew" class="ic long" title="play backwards; click again for 1.5× / 2× / 4× (J)">⏪</button><button id="play" class="ic" title="play / pause (space, K)">▶</button><button id="ff" class="ic long" title="fast forward 1.5× / 2× / 4× (L)">⏩</button><button id="fwd" class="ic" title="one frame forward (→)">⏭</button><span id="spd" class="long" title="click: next speed (1× → 1.5× → 2× → 4× → 0.25× → 0.5×), same direction; slow speeds keep the sound (check sync)">1×</span></span>
     <div id="seekwrap"><div id="marks"></div><div id="chaps"></div><input id="seek" type="range" min="0" max="1" step="0.001" value="0"></div><span id="time"></span></div>
   <div id="hint">Click anywhere on the picture to pin a note to that spot on that frame. Space plays and pauses. Arrows: one frame. J / K / L: back, stop, forward (press again to go faster).</div>
 </section>
@@ -109,7 +109,7 @@ function startRev(){stopRev();v.pause();const r={t0:performance.now(),v0:v.curre
     if(!r.busy){r.busy=true;v.currentTime=target;if(w.src)w.currentTime=target;}r.raf=requestAnimationFrame(tick);};
   r.raf=requestAnimationFrame(tick);}
 v.addEventListener('seeked',()=>{if(rev)rev.busy=false;});
-const cyc=[1,1.5,2,4],nxt=(s)=>cyc[(cyc.indexOf(Math.abs(s))+1)%cyc.length];
+const cyc=[1,1.5,2,4,0.25,0.5],nxt=(s)=>cyc[(cyc.indexOf(Math.abs(s))+1)%cyc.length];
 $('rew').onclick=()=>{const s=rev?-nxt(speed):-1;setSpeed(s);if(!rev)startRev();};                    // backwards: 1x, then 1.5x, 2x, 4x
 $('spd').onclick=()=>{const s=(speed<0?-1:1)*nxt(speed);setSpeed(s);};   // cycle speed, keep direction (playing state unchanged)
 $('ff').onclick=()=>{const s=(!v.paused&&speed>0)?nxt(speed):1.5;setSpeed(s);if(v.paused)v.play();};  // forward: 1.5x, 2x, 4x, back to 1x
@@ -121,7 +121,7 @@ async function loadChapters(){try{chapters=await api('/api/chapters?cut='+encode
 // act markers: a tick on the timeline; hover shows the name, click jumps there
 function drawChapters(){const C=$('chaps');C.innerHTML='';if(!v.duration)return;
   for(const c of chapters){const i=document.createElement('i');i.style.left=`calc(8px + (100% - 16px) * ${c.t/v.duration})`;i.dataset.label=c.label+' · '+fmt(c.t).replace(/\.\d+$/,'');i.onclick=()=>{stopRev();v.currentTime=c.t;};C.appendChild(i);}}
-v.addEventListener('loadedmetadata',()=>{loadChapters();document.body.classList.toggle('short',v.duration<60);if(v.duration<60)setSpeed(1);});   // speed/reverse only for long films (1 min+)
+v.addEventListener('loadedmetadata',()=>{loadChapters();document.body.classList.toggle('short',v.duration<60);v.loop=v.duration<60;if(v.duration<60)setSpeed(1);});   // speed/reverse only for long films (1 min+); reels loop so the seam is easy to judge
 // J K L shuttle
 const shuttle=[1,1.5,2,4];
 document.addEventListener('keydown',(e)=>{if(e.target.tagName==='TEXTAREA'||e.target.tagName==='SELECT'||e.target.tagName==='INPUT')return;const k=e.key.toLowerCase();
